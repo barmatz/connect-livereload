@@ -24,8 +24,16 @@ module.exports = function livereload(opt) {
 
   function snippet(host) {
     var src = opt.src || '//' + host + ':' + port + '/livereload.js?snipver=1';
+
+    var defaultAttrs = {
+      async: '',
+      defer: '',
+    };
+
+    var attrsString = Object.entries({ ...defaultAttrs, ...opt.scriptAttributes, }).map(([ key, value ]) => `${key}="${value}"`).join(' ');
+    
     return [src].concat(plugins).map(function(source) {
-      return '<script src="' + source + '" async="" defer=""></script>';
+      return '<script src="' + source + '" ' + attrsString + '></script>';
     }).join('');
   }
 
@@ -122,7 +130,7 @@ module.exports = function livereload(opt) {
         var body = string instanceof Buffer ? string.toString(encoding) : string;
         // If this chunk must receive a snip, do so
         if (exists(body) && !snip(res.data)) {
-          res.push(snap(body, host));
+          res.push(snap(body, host, attrs));
           return true;
         }
         // If in doubt, simply buffer the data for later inspection (on `end` function)

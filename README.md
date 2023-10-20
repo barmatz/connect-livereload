@@ -55,6 +55,11 @@ e.g.:
 These are the available options with the following defaults:
 
 ```javascript
+  // Key/value pairs to add to the script snippet
+  scriptAttributes: {
+    'http-equiv': 'Content-Security-Policy'
+  },
+
   // `ignore` and `include`: array with strings and regex expressions elements.
   // strings: included/ignored when the url contains this string
   // regex: any expression: e.g. starts with pattern: /^.../ ends with pattern: /...$/
