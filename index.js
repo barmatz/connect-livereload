@@ -130,7 +130,7 @@ module.exports = function livereload(opt) {
         var body = string instanceof Buffer ? string.toString(encoding) : string;
         // If this chunk must receive a snip, do so
         if (exists(body) && !snip(res.data)) {
-          res.push(snap(body, host, attrs));
+          res.push(snap(body, host));
           return true;
         }
         // If in doubt, simply buffer the data for later inspection (on `end` function)
